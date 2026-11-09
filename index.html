@@ -3,51 +3,124 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Alejandra Quintero — Digital Marketing Portfolio</title>
+<title>Alejandra Quintero — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&amp;display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
-
-  body { margin: 0; background: #FDF8F3; font-family: 'Public Sans', system-ui, sans-serif; color: #2A1E2E; }
-  h1, h2, h3, .display { font-family: 'Space Grotesk', system-ui, sans-serif; letter-spacing: -0.02em; }
-  a { color: #7A4C8C; text-decoration: none; }
-  a:hover { color: #55345F; }
-  .btn { display: inline-flex; align-items: center; gap: 8px; }
-  @media (max-width: 720px) {
-    .nav-links { gap: 14px !important; }
-    .hero-title { font-size: 40px !important; }
-    .contact-title { font-size: 30px !important; }
-    .sec { padding-left: 20px !important; padding-right: 20px !important; padding-top: 56px !important; padding-bottom: 56px !important; }
-    .hero-sec { padding: 64px 20px 56px !important; }
-    .about-row { gap: 28px !important; }
-    .personal-row { gap: 28px !important; }
-    .grid-3 { grid-template-columns: 1fr !important; }
-    .grid-2 { grid-template-columns: 1fr !important; }
-    .card-pad { padding: 28px !important; }
-  }
-  @media (max-width: 560px) {
-    .nav-links { font-size: 11.5px !important; gap: 8px !important; }
-    .hero-title { font-size: 32px !important; }
-  }
-
+body { margin: 0; background: #FDF8F3; }
+a { color: #7A4C8C; text-decoration: none; }
+a:hover { color: #55345F; }
+html { scroll-behavior: smooth; }
+[id^="case-"] { scroll-margin-top: 96px; }
+/* ---- Hero button pulse ---- */
+@keyframes heroPulse { 0% { box-shadow: 0 0 0 0 rgba(255,253,250,0.75); scale: 1; } 50% { scale: 1.05; } 70% { box-shadow: 0 0 0 22px rgba(255,253,250,0); } 100% { box-shadow: 0 0 0 0 rgba(255,253,250,0); scale: 1; } }
+.hero-pulse { transition: transform .3s ease; }
+.hero-pulse:hover { transform: translateY(-3px); }
+@media (prefers-reduced-motion: no-preference) { .hero-pulse { animation: heroPulse 2s ease-out infinite; } .hero-pulse:hover { animation-play-state: paused; } }
+/* ---- Gallery CTA motion ---- */
+@keyframes gctaShift { from { background-position: 0% 30%; } to { background-position: 100% 70%; } }
+@keyframes gctaFloat { from { translate: 0 0; } to { translate: -60px 40px; } }
+@keyframes gctaBreathe { 0%, 100% { scale: 1; } 50% { scale: 1.06; } }
+@keyframes gctaShine { 0%, 55% { translate: -160% 0; } 100% { translate: 260% 0; } }
+@keyframes gctaArrow { 0%, 100% { translate: 0 0; } 50% { translate: 6px 0; } }
+@keyframes gctaIn { from { opacity: 0; scale: .9; translate: 0 40px; } to { opacity: 1; scale: 1; translate: 0 0; } }
+.gcta-btn { position: relative; overflow: hidden; isolation: isolate; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+.gcta-btn::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 45%; z-index: -1; background: linear-gradient(100deg, transparent 0%, rgba(242,163,101,0.35) 50%, transparent 100%); translate: -160% 0; }
+.gcta-btn:hover { transform: translateY(-4px); }
+.gcta-arrow { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) {
+  .gcta { background-size: 220% 220% !important; animation: gctaShift 9s ease-in-out infinite alternate; }
+  .gcta-glow-1 { animation: gctaFloat 8s ease-in-out infinite alternate; }
+  .gcta-glow-2 { animation: gctaFloat 11s ease-in-out infinite alternate-reverse; }
+  .gcta-btn { animation: gctaBreathe 2.8s ease-in-out infinite; }
+  .gcta-btn::after { animation: gctaShine 3.2s ease-in-out infinite; }
+  .gcta-arrow { animation: gctaArrow 1.4s ease-in-out infinite; }
+  .gcta-btn:hover { animation-play-state: paused; }
+}
+@supports (animation-timeline: view()) { @media (prefers-reduced-motion: no-preference) {
+  .gcta-inner { animation: gctaIn linear both; animation-timeline: view(); animation-range: entry 10% cover 35%; }
+} }
+/* ---- Meet Ale: peach curtain that opens on click ---- */
+.meet-wrap { position: relative; max-width: 1160px; margin: 0 auto; border-radius: 22px; overflow: hidden; background: #FFFDFA; border: 1px solid #EEE1DC; }
+.meet-content { padding: 64px 56px 56px; }
+.meet-curtain { position: absolute; inset: 0; z-index: 3; width: 100%; margin: 0; border: 0; padding: 52px 40px 104px; cursor: pointer; font: inherit; color: #2A1E2E; text-align: center; background: #FBD3B0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 20px; perspective: 1400px; transition: transform .9s cubic-bezier(.75,0,.2,1) 0s; }
+.meet-wrap.is-open .meet-curtain { transform: translateY(-101%); transition-delay: .55s; }
+/* envelope: pocket (sides + bottom) and top flap */
+.meet-curtain::after { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, #F4AA70 0%, #F2A365 100%); clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%); }
+.meet-curtain::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 58%; z-index: 1; background: linear-gradient(180deg, #EC9658 0%, #DE8248 100%); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center; transition: transform .6s cubic-bezier(.6,0,.3,1) .85s; }
+.meet-wrap.is-open .meet-curtain::before { transform: rotateX(180deg); transition-delay: 0s; }
+/* closed envelope keeps a fixed, letter-like size; opens to full content height */
+.meet-wrap { interpolate-size: allow-keywords; height: auto; transition: height .8s cubic-bezier(.6,0,.3,1) .35s; }
+.meet-wrap:not(.is-open) { height: 460px; transition-delay: 0s; }
+.meet-curtain > * { position: relative; z-index: 2; }
+.meet-curtain:focus-visible { outline: 3px solid #7A4C8C; outline-offset: -8px; }
+.meet-kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #6A3F2A; }
+.meet-title { font-family: 'Space Grotesk', sans-serif; font-size: 72px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; color: #FFE4EE; text-shadow: 0 2px 14px rgba(122,60,40,0.28); }
+.meet-hint { display: inline-flex; align-items: center; gap: 12px; padding: 18px 38px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 19px; font-weight: 700; box-shadow: 0 12px 28px rgba(122,76,140,0.22); transition: transform .3s ease; }
+.meet-curtain:hover .meet-hint { transform: translateY(-3px); }
+.meet-hint-arrow { display: inline-block; animation: meetNudge 1.6s ease-in-out infinite; }
+@keyframes meetNudge { 0%, 100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+.meet-close { position: absolute; top: 18px; right: 18px; z-index: 2; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid #E6D6DC; background: #FFFDFA; color: #5A4C5E; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .25s ease, color .25s ease, transform .3s ease; }
+.meet-close:hover, .meet-close:focus-visible { background: #2A1E2E; color: #FDF8F3; transform: rotate(90deg); }
+.meet-wrap:not(.is-open) .meet-content, .meet-wrap:not(.is-open) .meet-close { visibility: hidden; transition: visibility 0s .9s; }
+.meet-content .about-row > * { opacity: 0; translate: 0 24px; transition: opacity .6s ease, translate .6s cubic-bezier(.2,.7,.2,1); }
+.meet-wrap.is-open .about-row > * { opacity: 1; translate: 0 0; transition-delay: .45s; }
+.meet-wrap.is-open .about-row > :nth-child(2) { transition-delay: .6s; }
+@media (max-width: 720px) { .meet-content { padding: 72px 24px 32px; } .meet-title { font-size: 32px; max-width: 58%; } .meet-wrap:not(.is-open) { height: 340px; } .meet-curtain { padding: 30px 20px 40px !important; } .meet-hint { font-size: 15px !important; padding: 12px 24px !important; } }
+@media (prefers-reduced-motion: reduce) { .meet-curtain, .meet-curtain::before, .meet-content .about-row > * { transition: none; } .meet-hint-arrow { animation: none; } }
+/* ---- Project index: color sweep on hover ---- */
+.wrow { position: relative; display: grid; grid-template-columns: 64px minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 0.8fr) 40px; align-items: center; gap: 20px; padding: 28px; border-top: 1px solid #E6D6DC; color: #2A1E2E; overflow: hidden; isolation: isolate; transition: color .45s ease; }
+.wrow::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #7A4C8C 0%, #9A5FA0 55%, #F2A365 100%); transform: scaleX(0); transform-origin: right; transition: transform .6s cubic-bezier(.75,0,.2,1); }
+.wrow:hover::before, .wrow:focus-visible::before { transform: scaleX(1); transform-origin: left; }
+.wrow:hover, .wrow:focus-visible { color: #FFFDFA; }
+.wrow-num { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: #C4783A; transition: color .45s ease; }
+.wrow-name { font-family: 'Space Grotesk', sans-serif; font-size: 34px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; transition: translate .6s cubic-bezier(.2,.7,.2,1); }
+.wrow-cat { font-size: 15px; font-weight: 600; }
+.wrow-type { font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #7A4C8C; transition: color .45s ease; }
+.wrow-arrow { justify-self: end; font-size: 24px; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.wrow:hover .wrow-num, .wrow:hover .wrow-type, .wrow:focus-visible .wrow-num, .wrow:focus-visible .wrow-type { color: #FBE4CC; }
+.wrow:hover .wrow-name, .wrow:focus-visible .wrow-name { translate: 14px 0; }
+.wrow:hover .wrow-arrow, .wrow:focus-visible .wrow-arrow { transform: translateX(6px) rotate(-45deg); }
+@media (max-width: 720px) { .wrow { grid-template-columns: 36px minmax(0, 1fr) 28px; gap: 12px; padding: 22px 12px; } .wrow-cat, .wrow-type { display: none; } .wrow-name { font-size: 24px; } }
+@media (prefers-reduced-motion: reduce) { .wrow::before, .wrow-name, .wrow-arrow { transition: none; } }
+.ph { display: flex; align-items: center; justify-content: center; text-align: center; box-sizing: border-box; padding: 16px; font-size: 13px; font-weight: 600; color: #7A4C8C; background: #EDE1F0; border: 2px dashed #C9AFD2; }
+@media (max-width: 720px) {
+  .nav-links { gap: 14px !important; }
+  .hero-title { font-size: 40px !important; }
+  .contact-title { font-size: 30px !important; }
+  .sec { padding-left: 20px !important; padding-right: 20px !important; padding-top: 56px !important; padding-bottom: 56px !important; }
+  .hero-sec { padding: 64px 20px 56px !important; }
+  .about-row { gap: 28px !important; }
+  .personal-row { gap: 28px !important; }
+  .grid-3 { grid-template-columns: 1fr !important; }
+  .grid-2 { grid-template-columns: 1fr !important; }
+  .card-pad { padding: 28px !important; }
+}
+@media (max-width: 560px) {
+  .nav-links { font-size: 11.5px !important; gap: 8px !important; }
+  .hero-title { font-size: 32px !important; }
+}
 </style>
 </head>
 <body>
-
-
-<div style="width: 100%; min-height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; background: #FDF8F3; overflow-x: hidden;">
+<div style="width: 100%; min-height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; background: #FDF8F3; overflow-x: hidden; font-family: 'Public Sans', system-ui, sans-serif; color: #2A1E2E;">
 
   <!-- NAV -->
   <div style="position: sticky; top: 0; z-index: 10; width: 100%; box-sizing: border-box; background: rgba(253,248,243,0.9); backdrop-filter: blur(6px); border-bottom: 1px solid #EEE1DC;">
-    <div style="max-width: 1160px; margin: 0 auto; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between;">
+    <div style="max-width: 1160px; margin: 0 auto; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
       <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.01em;">Alejandra Quintero Solana</span>
-      <div class="nav-links" style="display: flex; flex-wrap: wrap; gap: 28px; font-size: 14px; font-weight: 600;">
+      <div class="nav-links" style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; font-size: 14px; font-weight: 600;">
         <a href="#about" style="color: #2A1E2E;">About</a>
         <a href="#approach" style="color: #2A1E2E;">Approach</a>
         <a href="#work" style="color: #2A1E2E;">Work</a>
+        <a href="#tools" style="color: #2A1E2E;">Tools</a>
         <a href="gallery.html" style="color: #2A1E2E;">Gallery</a>
         <a href="#contact" style="color: #2A1E2E;">Contact</a>
+        <a href="https://substack.com/@alesjournale" target="_blank" rel="noopener" style="color: #2A1E2E;">Substack</a>
+        <div style="display: flex; align-items: center; gap: 2px; padding: 3px; border: 1px solid #E6D6DC; border-radius: 999px; font-size: 12.5px; font-weight: 700;">
+          <span style="padding: 5px 11px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3;">EN</span>
+          <a href="inicio.html" style="padding: 5px 11px; border-radius: 999px; color: #2A1E2E;">ES</a>
+        </div>
       </div>
     </div>
   </div>
@@ -58,27 +131,37 @@
     <div style="position: absolute; bottom: -160px; left: -60px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%);"></div>
     <div style="position: relative; max-width: 1160px; margin: 0 auto;">
       <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #FBE4CC; margin-bottom: 26px;">Personal Portfolio</div>
-      <h1 class="display hero-title" style="margin: 0; font-size: 80px; line-height: 1.0; font-weight: 700; color: #FFFDFA; max-width: 880px;">Digital Marketing <span style="font-weight: 500; color: #FBE4CC;">&amp;</span> Content Design</h1>
+      <h1 class="hero-title" style="margin: 0; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 80px; line-height: 1.0; font-weight: 700; color: #FFFDFA; max-width: 880px;">Digital Communication <span style="font-weight: 500; color: #FBE4CC;">&amp;</span> Content Strategy</h1>
+      <p style="margin: 26px 0 0; font-family: 'Space Grotesk', sans-serif; font-size: 26px; line-height: 1.3; font-weight: 500; letter-spacing: -0.01em; color: #FBE4CC;">Strategy, storytelling and results.</p>
       <div style="margin-top: 40px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
         <span style="font-size: 20px; font-weight: 600; color: #FFFDFA;">Alejandra Quintero Solana</span>
         <span style="width: 4px; height: 4px; border-radius: 50%; background: #FBE4CC;"></span>
         <span style="font-size: 16px; color: #F6E3E9;">5 years of experience across strategy, content &amp; paid campaigns</span>
       </div>
-      <a href="gallery.html" class="btn" style="margin-top: 44px; background: #FFFDFA; color: #7A4C8C; font-weight: 700; font-size: 15px; padding: 16px 32px; border-radius: 999px;">See my work in the Gallery →</a>
+      <a href="gallery.html" class="hero-pulse" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 44px; background: #FFFDFA; color: #7A4C8C; font-weight: 700; font-size: 15px; padding: 16px 32px; border-radius: 999px;">See my work in the Gallery →</a>
     </div>
   </div>
 
   <!-- ABOUT -->
-  <div id="about" class="sec" style="width: 100%; box-sizing: border-box; padding: 100px 32px; position: relative">
-    <div class="about-row" style="max-width: 1160px; margin: 0 auto; display: flex; gap: 80px; align-items: flex-start; flex-wrap: wrap;">
-      <div style="width: 252px; height: 266px; border-radius: 50%; flex-shrink: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 4px solid #F2EFE7; box-shadow: 0 0 0 1px #EEE1DC; background-color: #F2EFE7">
-        <img src="images/9d32da93bfebd9fc56ebcaee0bbd98bb.png" alt="AQS monogram" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+  <div id="about" class="sec" style="width: 100%; box-sizing: border-box; padding: 100px 32px;">
+    <!-- MEET ALE: curtain -->
+    <div class="meet-wrap">
+      <button type="button" class="meet-curtain" aria-expanded="false" aria-controls="meet-content" style="font-size: 17px"><span class="meet-title">Meet<br>&nbsp;Ale<br>&nbsp;</span>
+        <span class="meet-hint">Click to open <span class="meet-hint-arrow" aria-hidden="true">↑</span></span>
+      </button>
+      <button type="button" class="meet-close" aria-label="Close"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+      <div id="meet-content" class="meet-content">
+    <div class="about-row" style="max-width: 1160px; margin: 0 auto; display: flex; gap: 72px; align-items: center; justify-content: center; flex-wrap: wrap;">
+      <div style="width: 300px; height: 430px; border-radius: 20px; flex-shrink: 0; overflow: hidden; box-shadow: 0 18px 40px rgba(42,30,46,0.14); background: #F2EFE7;">
+        <img src="images/alejandra-quintero.jpg" alt="Alejandra Quintero" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; display: block;">
       </div>
-      <div style="flex: 1; min-width: 320px;">
-        <h2 style="margin: 0 0 24px; font-size: 14px; font-family: 'Public Sans', sans-serif; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C4783A;">About</h2>
-        <p class="display" style="margin: 0 0 22px; font-size: 27px; line-height: 1.45; font-weight: 500; max-width: 700px; color: #2A1E2E;">Hi, I'm Alejandra — a digital marketing specialist, storyteller, and head-to-tail communicator.</p>
-        <p style="margin: 0 0 18px; font-size: 17px; line-height: 1.75; color: #5A4C5E; max-width: 680px;">I combine creativity with data-driven thinking to build digital experiences that connect, inspire, and deliver results. With five years of experience across social media strategy, paid campaigns, content creation, audience insights, and digital analytics, I've collaborated with brands, NGOs, creators, and corporate teams to bring ideas to life across multiple platforms. Recently I was involved in a Costco program.</p>
-        <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #5A4C5E; max-width: 680px;">Adaptation is part of who I am professionally — I see using AI as a tool, not a threat, and stay comfortable moving with an industry that keeps changing fast rather than fearing it.</p>
+      <div style="flex: 1; min-width: 280px;">
+        <h2 style="margin: 0 0 24px; font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C4783A;">About</h2>
+        <p style="margin: 0 0 22px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 27px; line-height: 1.45; font-weight: 500; max-width: 700px; color: #2A1E2E;">Hi, I'm Alejandra — a digital content producer, storyteller and communicator.</p>
+        <p style="margin: 0 0 18px; font-size: 17px; line-height: 1.75; color: #5A4C5E; max-width: 680px;">With more than five years of experience in social media strategy, paid campaigns, content creation, audience insights and digital analytics, I've worked with brands, NGOs, creators and corporate teams to turn ideas into communication and content strategies across platforms.</p>
+        <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #5A4C5E; max-width: 680px;">I love staying on top of trends, exploring new formats and understanding how narratives evolve across digital channels. I specialize in developing and executing content strategies for brands, organizations and niche audiences, focused on strengthening their positioning and building relationships with their audiences through horizontal, meaningful communication. I combine creativity, data analysis and strategic vision to turn ideas into tangible results.</p>
+      </div>
+    </div>
       </div>
     </div>
   </div>
@@ -86,15 +169,13 @@
   <!-- PERSONAL -->
   <div class="sec" style="width: 100%; box-sizing: border-box; padding: 0 32px 100px;">
     <div class="personal-row" style="max-width: 1160px; margin: 0 auto; display: flex; gap: 60px; align-items: center; flex-wrap: wrap-reverse;">
-      <div style="flex: 1; min-width: 320px;">
-        <h2 style="margin: 0 0 24px; font-size: 14px; font-family: 'Public Sans', sans-serif; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C4783A;">Beyond the Work</h2>
-        <p class="display" style="margin: 0 0 22px; font-size: 24px; line-height: 1.5; font-weight: 500; color: #2A1E2E;">A curious mind, drawn to every kind of brand and industry.</p>
-        <p style="margin: 0; font-size: 16px; line-height: 1.8; color: #5A4C5E;">I love finding the thread that lets a message travel with style across platforms and channels, without losing its true essence and authenticity. I'm genuinely fascinated by how media trends take shape and spread. My international experience — including a Business Marketing MSc in London — gave me a new appreciation for prestige, elegance, and the craft behind a brand's presence.</p>
+      <div style="flex: 1; min-width: 280px;">
+        <h2 style="margin: 0 0 24px; font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C4783A;">Beyond the Work</h2>
+        <p style="margin: 0 0 22px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 24px; line-height: 1.5; font-weight: 500; color: #2A1E2E;">A strategic, solution-driven mind, focused on turning goals into results.</p>
+        <p style="margin: 0; font-size: 16px; line-height: 1.8; color: #5A4C5E;">I love finding the thread that lets a message travel with style across platforms and channels without losing its essence or authenticity. My international experience, including a Master's in Digital Marketing in London, gave me a global, strategic perspective and a competitive view of the digital landscape and its constant transformation.</p>
       </div>
-      <div style="width: 280px; flex-shrink: 0;">
-        <div style="width: 100%; aspect-ratio: 4 / 5; border-radius: 20px; overflow: hidden;">
-          <img src="images/710b65cc09ab6bbd0569337a7735d029.jpg" alt="Alejandra Quintero" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-        </div>
+      <div style="width: 280px; aspect-ratio: 4 / 5; border-radius: 20px; overflow: hidden; flex-shrink: 0;">
+        <img src="images/your-brand-your-style.jpg" alt="Your brand, your style: two women on a storefront step with an iced matcha and an iced latte over their faces" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       </div>
     </div>
   </div>
@@ -102,31 +183,239 @@
   <!-- APPROACH -->
   <div id="approach" class="sec" style="width: 100%; box-sizing: border-box; padding: 0 32px 100px;">
     <div style="max-width: 1160px; margin: 0 auto;">
-      <h2 style="margin: 0 0 12px; font-size: 14px; font-family: 'Public Sans', sans-serif; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C4783A;">Vision &amp; Content</h2>
-      <h3 class="display" style="margin: 0 0 20px; font-size: 36px; font-weight: 700; text-shadow: 0px 1px 3px #00000033">Design + Message + Quality + KPIs</h3>
+      <h2 style="margin: 0 0 12px; font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C4783A;">Vision &amp; Content</h2>
+      <h3 style="margin: 0 0 20px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 36px; font-weight: 700;">Design + Message + Quality + KPIs</h3>
       <p style="margin: 0 0 44px; font-size: 17px; line-height: 1.7; color: #5A4C5E; max-width: 720px;">Content quality goes far beyond visuals. I approach each project with a holistic understanding that effective content is built on three pillars.</p>
       <div class="grid-3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;">
         <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 18px; padding: 34px;">
           <div style="width: 44px; height: 44px; border-radius: 10px; background: #EDE1F0; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A4C8C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A4C8C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
           </div>
-          <h4 style="margin: 0 0 10px; font-size: 18px; font-weight: 700; font-family: 'Public Sans', sans-serif;">Storytelling</h4>
+          <h4 style="margin: 0 0 10px; font-size: 18px; font-weight: 700;">Storytelling</h4>
           <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #766A7A;">I design narratives that resonate with audiences and communicate clearly with stakeholders.</p>
         </div>
         <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 18px; padding: 34px;">
           <div style="width: 44px; height: 44px; border-radius: 10px; background: #FBE4CC; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C4783A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C4783A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
           </div>
-          <h4 style="margin: 0 0 10px; font-size: 18px; font-weight: 700; font-family: 'Public Sans', sans-serif;">Community Building</h4>
+          <h4 style="margin: 0 0 10px; font-size: 18px; font-weight: 700;">Community Building</h4>
           <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #766A7A;">Growing engaged audiences and turning followers into a loyal community around a brand.</p>
         </div>
         <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 18px; padding: 34px;">
           <div style="width: 44px; height: 44px; border-radius: 10px; background: #EDE1F0; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A4C8C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A4C8C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
           </div>
-          <h4 style="margin: 0 0 10px; font-size: 18px; font-weight: 700; font-family: 'Public Sans', sans-serif;">Platform Strategy</h4>
+          <h4 style="margin: 0 0 10px; font-size: 18px; font-weight: 700;">Platform Strategy</h4>
           <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #766A7A;">Approaching diverse platforms and audiences with content that is curated and strategically effective.</p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELECTED WORK -->
+  <div id="work" class="sec" style="width: 100%; box-sizing: border-box; padding: 0 32px 100px;">
+    <div style="max-width: 1160px; margin: 0 auto;">
+      <h2 style="margin: 0 0 12px; font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C4783A;">Selected Work</h2>
+      <h3 style="margin: 0 0 20px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 36px; font-weight: 700;">Case studies</h3>
+      <p style="margin: 0 0 56px; font-size: 17px; line-height: 1.7; color: #5A4C5E; max-width: 720px;">My work falls into three areas: designing websites that rank and convert, running social media campaigns that grow communities, and communicating from inside a global retailer.</p>
+
+      <!-- PROJECT INDEX -->
+      <div style="margin: 0 0 72px; border-bottom: 1px solid #E6D6DC;">
+        <a href="#case-solcomms" class="wrow"><span class="wrow-num">01</span><span class="wrow-name">SOLCOMMS</span><span class="wrow-cat">Web Design &amp; Brand Identity</span><span class="wrow-type">Crypto Agency</span><span class="wrow-arrow" aria-hidden="true">→</span></a>
+        <a href="#case-mexcc" class="wrow"><span class="wrow-num">02</span><span class="wrow-name">Mexican Chamber of Commerce UK</span><span class="wrow-cat">Web Design &amp; Brand Identity</span><span class="wrow-type">Trade Body</span><span class="wrow-arrow" aria-hidden="true">→</span></a>
+        <a href="#case-mezcal" class="wrow"><span class="wrow-num">03</span><span class="wrow-name">Mezcal Reina</span><span class="wrow-cat">Media Campaigns</span><span class="wrow-type">Mezcal Brand · UK</span><span class="wrow-arrow" aria-hidden="true">→</span></a>
+        <a href="#case-mezcal" class="wrow"><span class="wrow-num">04</span><span class="wrow-name">Crianza con Cariño</span><span class="wrow-cat">Media Campaigns</span><span class="wrow-type">NGO</span><span class="wrow-arrow" aria-hidden="true">→</span></a>
+        <a href="#case-naucalpan" class="wrow"><span class="wrow-num">05</span><span class="wrow-name">Gobierno de Naucalpan</span><span class="wrow-cat">Media Campaigns</span><span class="wrow-type">Government</span><span class="wrow-arrow" aria-hidden="true">→</span></a>
+        <a href="#case-costco" class="wrow"><span class="wrow-num">06</span><span class="wrow-name">Costco Wholesale UK</span><span class="wrow-cat">Corporate · In-house</span><span class="wrow-type">Retail</span><span class="wrow-arrow" aria-hidden="true">→</span></a>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+
+        <!-- CHAPTER 01 -->
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; padding-bottom: 20px; border-bottom: 1px solid #EEE1DC;">
+          <span style="font-family: 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 700; line-height: 1; color: #C4783A;">01</span>
+          <div style="flex: 1; min-width: 260px;">
+            <h4 style="margin: 0 0 8px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 26px; font-weight: 700;">Web Design &amp; Brand Identity</h4>
+            <p style="margin: 0; font-size: 15.5px; line-height: 1.65; color: #5A4C5E; max-width: 680px;">Websites built to be found and to convert — page structure, search optimisation, clear calls to action and content that turns visitors into leads.</p>
+          </div>
+        </div>
+
+        <!-- SOLCOMMS -->
+        
+
+        <!-- MEXCC -->
+        <div id="case-solcomms" style="background: linear-gradient(120deg, #EDE1F0 0%, #FBE4CC 100%); border-radius: 22px; overflow: hidden; display: flex; flex-wrap: wrap;">
+          <div class="card-pad" style="flex: 1; min-width: 280px; padding: 44px;">
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A4C8C; margin-bottom: 14px;">CRYPTO AGENCY</div>
+            <h4 style="margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 30px; font-weight: 600; color: #2A1E2E;">SOLCOMMS</h4>
+            <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.65; color: #4A3B4E; max-width: 460px;">Web, SEO and lead-generation design — "the element that drives your growth." Built out brand identity, lead design, SEO &amp; CTA strategy and content curation.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Brand Identity</span>
+              <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Lead Design</span>
+              <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">SEO &amp; CTA</span>
+              <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Content Curation</span>
+            </div>
+            <a href="https://solcomms.agency" target="_blank" rel="noopener" style="display: inline-block; margin-top: 22px; font-size: 14px; font-weight: 700; color: #7A4C8C;">solcomms.agency →</a>
+          </div>
+          <div style="flex: 1; min-width: 280px; min-height: 280px; background: #000; display: flex; width: 544px; height: 291px">
+            <img src="images/solcomms-web.png" alt="SOLCOMMS website" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+        </div><div id="case-mexcc" style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 22px; overflow: hidden; display: flex; flex-wrap: wrap;">
+          <div class="card-pad" style="flex: 1; min-width: 280px; padding: 44px;">
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C4783A; margin-bottom: 14px;">Bilateral Trade Body</div>
+            <h4 style="margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 30px; font-weight: 600; color: #2A1E2E;">Mexican Chamber of Commerce UK</h4>
+            <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.65; color: #5A4C5E; max-width: 460px;">Web page design, content curation and community support for the bilateral trade body connecting Mexico and the United Kingdom.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px;">
+              <span style="padding: 7px 14px; border-radius: 999px; border: 1px solid #EEE1DC; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Web Content</span>
+              <span style="padding: 7px 14px; border-radius: 999px; border: 1px solid #EEE1DC; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Social Media</span>
+              <span style="padding: 7px 14px; border-radius: 999px; border: 1px solid #EEE1DC; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Events</span>
+            </div>
+            <a href="https://mexcc.uk" style="font-size: 14px; font-weight: 700; color: #7A4C8C;">mexcc.uk →</a>
+            <div style="margin-top: 28px;">
+              <img src="images/mexcc-logo.png" alt="Mexican Chamber of Commerce UK logo" style="width: 100%; max-width: 260px; height: auto; display: block;">
+            </div>
+          </div>
+          <div style="flex: 1; min-width: 280px; min-height: 300px; overflow: hidden; display: flex;">
+            <img src="images/angel-independencia.jpg" alt="Ángel de la Independencia, Mexico City" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+        </div>
+
+        <!-- CHAPTER 02 -->
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; padding-bottom: 20px; border-bottom: 1px solid #EEE1DC; margin-top: 48px;">
+          <span style="font-family: 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 700; line-height: 1; color: #C4783A;">02</span>
+          <div style="flex: 1; min-width: 260px;">
+            <h4 style="margin: 0 0 8px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 26px; font-weight: 700;">Media Campaigns: Communication &amp; Organic Content</h4>
+            <p style="margin: 0; font-size: 15.5px; line-height: 1.65; color: #5A4C5E; max-width: 680px;">End-to-end organic campaigns across Instagram, TikTok and Facebook — for personal brands, a parenting NGO and a local government. I take each one from the first idea to the published post.</p>
+          </div>
+        </div>
+
+        <!-- CAMPAIGN PROCESS -->
+        <div class="grid-2" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;">
+          <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 18px; padding: 24px;">
+            <div style="width: 40px; height: 40px; border-radius: 10px; background: #EDE1F0; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A4C8C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+            </div>
+            <h5 style="margin: 0 0 8px; font-size: 16px; font-weight: 700;">Strategy</h5>
+            <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #766A7A;">Audience, message, platforms and content calendar — what to say, where and when.</p>
+          </div>
+          <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 18px; padding: 24px;">
+            <div style="width: 40px; height: 40px; border-radius: 10px; background: #FBE4CC; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4783A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+            </div>
+            <h5 style="margin: 0 0 8px; font-size: 16px; font-weight: 700;">Design</h5>
+            <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #766A7A;">Posts, carousels and visual identity that keep every brand consistent.</p>
+          </div>
+          <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 18px; padding: 24px;">
+            <div style="width: 40px; height: 40px; border-radius: 10px; background: #EDE1F0; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A4C8C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+            </div>
+            <h5 style="margin: 0 0 8px; font-size: 16px; font-weight: 700;">Video Production</h5>
+            <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #766A7A;">Planning and shooting short-form video for Reels and TikTok.</p>
+          </div>
+          <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 18px; padding: 24px;">
+            <div style="width: 40px; height: 40px; border-radius: 10px; background: #FBE4CC; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4783A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+            </div>
+            <h5 style="margin: 0 0 8px; font-size: 16px; font-weight: 700;">Video Editing</h5>
+            <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #766A7A;">Cutting, captions and trending audio, edited for each platform.</p>
+          </div>
+        </div>
+
+        <!-- CREATORS + CRIANZA -->
+        <div id="case-mezcal" class="grid-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px;">
+          <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 22px; overflow: hidden;">
+            <div style="width: 563px; height: 470px; background: #F2C9BC; overflow: hidden">
+              <img src="images/mezcal-reina-botella.png" alt="Mezcal Reina bottle with glasses, lime and flowers" style="width: 100%; height: 100%; object-fit: cover; object-position: center 50%; display: block;">
+            </div>
+            <div class="card-pad" style="padding: 36px;">
+              <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A4C8C; margin-bottom: 14px;">MEZCAL BRAND · UK</div>
+              <h4 style="margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 24px; font-weight: 600;">Mezcal Reina</h4>
+              <p style="margin: 0 0 18px; font-size: 15px; line-height: 1.65; color: #5A4C5E;">Organic content and social media for an ancestral mezcal brand in the UK — product posts, event coverage and short-form video that tell the story of Mexican craft and culture.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-bottom: 20px;">
+                <a href="https://www.instagram.com/mezcalreina/" style="font-size: 13.5px; font-weight: 700;">@mezcalreina →</a>
+              </div>
+              <div style="display: flex; align-items: baseline; gap: 10px; padding-top: 18px; border-top: 1px solid #EEE1DC;"><span style="font-family: &quot;Space Grotesk&quot;, sans-serif; font-size: 28px; font-weight: 700; color: rgb(42, 30, 46)"><br></span>
+              </div>
+            </div>
+          </div>
+          <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 22px; overflow: hidden;">
+            <div style="width: 100%; height: 380px; background: #EAF2F8; overflow: hidden;">
+              <img src="images/crianza-facebook-post.png" alt="Crianza con Cariño y Buen Trato Facebook post" style="width: 566px; height: 446px; object-fit: cover; display: block; object-position: 50% 63.6443%">
+            </div>
+            <div class="card-pad" style="padding: 36px;">
+              <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C4783A; margin-bottom: 14px;">NGO</div>
+              <h4 style="margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 24px; font-weight: 600;">Crianza con Cariño y Buen Trato</h4>
+              <p style="margin: 0 0 18px; font-size: 15px; line-height: 1.65; color: #5A4C5E;">Memes, content and visual identity for a parenting-focused NGO, publishing across Facebook, TikTok and Instagram with a warm, values-driven tone.</p>
+              <a href="https://www.instagram.com/crianzaconcarino" style="font-size: 13.5px; font-weight: 700; display: block; margin-bottom: 20px;">@crianzaconcarino →</a>
+              <div style="display: flex; align-items: baseline; gap: 10px; padding-top: 18px; border-top: 1px solid #EEE1DC;">
+                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: #2A1E2E;">4%</span>
+                <span style="font-size: 12.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7A4C8C;">CTR</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NAUCALPAN -->
+        <div id="case-naucalpan" style="background: linear-gradient(120deg, #EDE1F0 0%, #FBE4CC 100%); border-radius: 22px; overflow: hidden;">
+          <div class="card-pad" style="padding: 44px;">
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A4C8C; margin-bottom: 14px;">Government · Naucalpan de Juárez, 2021</div>
+            <h4 style="margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 30px; font-weight: 600; color: #2A1E2E;">Government Communication Campaigns</h4>
+            <p style="margin: 0 0 22px; font-size: 15px; line-height: 1.65; color: #4A3B4E; max-width: 520px;">Public-health and civic engagement content for the Naucalpan Government. Developing strategic communication across digital platforms for the local citizens. Creating successful campaigns in different government areas such as the IMCUFIDEN and Women Protection Agency.<br><a href="https://www.facebook.com/CiudadNaucalpan" style="color: #7A4C8C; font-weight: 700;">@GOBNAU →</a></p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px;">
+              <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Political Content</span>
+              <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Health &amp; Exercise</span>
+              <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Announcements</span>
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 10px; padding-top: 18px; border-top: 1px solid rgba(122,76,140,0.25);">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: #2A1E2E;">+300,000</span>
+              <span style="font-size: 12.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7A4C8C;">Facebook citizens reached</span>
+            </div>
+            <div style="margin-top: 24px; border-radius: 14px; overflow: hidden; max-width: 260px;">
+              <img src="images/naucalpan-activatenau.png" alt="Naucalpan Actividades Deportivas #ActívateNau" style="width: 100%; height: auto; display: block;">
+            </div>
+          </div>
+        </div>
+
+        <!-- CHAPTER 03 -->
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; padding-bottom: 20px; border-bottom: 1px solid #EEE1DC; margin-top: 48px;">
+          <span style="font-family: 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 700; line-height: 1; color: #C4783A;">03</span>
+          <div style="flex: 1; min-width: 260px;">
+            <h4 style="margin: 0 0 8px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 26px; font-weight: 700;">Corporate · In-house</h4>
+            <p style="margin: 0; font-size: 15.5px; line-height: 1.65; color: #5A4C5E; max-width: 680px;">Communicating from inside a global retailer&nbsp; on camera and behind the scenes of its social channels.</p>
+          </div>
+        </div>
+
+        <!-- COSTCO -->
+        <div id="case-costco" style="background: linear-gradient(120deg, #EDE1F0 0%, #FBE4CC 100%); border-radius: 22px; overflow: hidden; display: flex; flex-wrap: wrap;">
+          <div class="card-pad" style="flex: 1; min-width: 280px; padding: 44px;">
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A4C8C; margin-bottom: 14px;">Retail &amp; Wholesale</div>
+            <h4 style="margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 30px; font-weight: 600; color: #2A1E2E;">Costco Wholesale UK</h4>
+            <p style="margin: 0 0 8px; font-size: 15px; line-height: 1.65; color: #7A4C5E; font-weight: 700;">Communication Team &amp; Inventory Specialist</p>
+            <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.65; color: #4A3B4E; max-width: 460px;">In-house content and communications support for Costco UK's social channels, alongside inventory operations — appearing on camera and helping produce short-form video content that regularly reached millions of views.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Internal Communications</span>
+              <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Inventory Operations</span>
+              <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">On-Camera Content</span>
+            </div>
+          </div>
+          <div style="flex: 1; min-width: 280px; min-height: 280px; background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px; gap: 16px; box-sizing: border-box;">
+            <img src="images/costco-logo.png" alt="Costco Wholesale logo" style="width: 100%; max-width: 320px; height: auto; display: block;">
+            <a href="https://www.costco.co.uk" style="font-size: 14px; font-weight: 700; color: #7A4C8C;">costco.co.uk →</a>
+          </div>
+        </div>
+
+        <!-- GALLERY CTA -->
+        <div class="gcta" style="position: relative; margin-top: 48px; border-radius: 26px; overflow: hidden; background: linear-gradient(135deg, #7A4C8C 0%, #9A5FA0 45%, #F2A365 100%); padding: 64px 48px; text-align: center;">
+          <div class="gcta-glow-1" style="position: absolute; top: -100px; right: -60px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%);"></div>
+          <div class="gcta-glow-2" style="position: absolute; bottom: -120px; left: -40px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);"></div>
+          <div class="gcta-inner" style="position: relative;">
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #FBE4CC; margin-bottom: 16px;">Gallery</div>
+            <h4 style="margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 40px; line-height: 1.1; font-weight: 700; color: #FFFDFA;">Want to see more?</h4>
+            <p style="margin: 0 auto 32px; font-size: 17px; line-height: 1.6; color: #F6E3E9; max-width: 520px;">Grids, reels, posts and campaigns from every brand I've worked with.</p>
+            <a href="gallery.html" class="gcta-btn" style="display: inline-flex; align-items: center; gap: 10px; background: #FFFDFA; color: #7A4C8C; font-weight: 700; font-size: 17px; padding: 20px 40px; border-radius: 999px; box-shadow: 0 10px 30px rgba(42,30,46,0.25);">Explore the full Gallery <span class="gcta-arrow" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -134,7 +423,7 @@
   <!-- EXPERIENCE CHIPS -->
   <div class="sec" style="width: 100%; box-sizing: border-box; padding: 0 32px 100px;">
     <div style="max-width: 1160px; margin: 0 auto;">
-      <h2 style="margin: 0 0 24px; font-size: 14px; font-family: 'Public Sans', sans-serif; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C4783A;">Experience</h2>
+      <h2 style="margin: 0 0 24px; font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C4783A;">Experience</h2>
       <div style="display: flex; flex-wrap: wrap; gap: 12px;">
         <span style="padding: 10px 18px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3; font-size: 14px; font-weight: 600;">SOLCOMMS Agency</span>
         <span style="padding: 10px 18px; border-radius: 999px; background: #7A4C8C; color: #FDF8F3; font-size: 14px; font-weight: 600;">Ivonne de la Flor</span>
@@ -148,159 +437,75 @@
     </div>
   </div>
 
-  <!-- CORPORATE EXPERIENCE -->
-  <div class="sec" style="width: 100%; box-sizing: border-box; padding: 0 32px 100px;">
+  <!-- TOOLKIT -->
+  <div id="tools" class="sec" style="width: 100%; box-sizing: border-box; padding: 0 32px 100px;">
     <div style="max-width: 1160px; margin: 0 auto;">
-      <h2 style="margin: 0 0 12px; font-size: 14px; font-family: 'Public Sans', sans-serif; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C4783A;">Corporate Experience</h2>
-      <h3 class="display" style="margin: 0 0 40px; font-size: 36px; font-weight: 700;">In-house work</h3>
-      <div style="background: linear-gradient(120deg, #EDE1F0 0%, #FBE4CC 100%); border-radius: 22px; overflow: hidden; display: flex; gap: 0; flex-wrap: wrap;">
-        <div class="card-pad" style="flex: 1; min-width: 320px; padding: 44px;">
-          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A4C8C; margin-bottom: 14px;">Retail &amp; Wholesale</div>
-          <h4 class="display" style="margin: 0 0 12px; font-size: 30px; font-weight: 600; color: #2A1E2E;">Costco Wholesale UK</h4>
-          <p style="margin: 0 0 8px; font-size: 15px; line-height: 1.65; color: #7A4C5E; font-weight: 700;">Communication Team &amp; Inventory Specialist</p>
-          <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.65; color: #4A3B4E; max-width: 460px;">In-house content and communications support for Costco UK's social channels, alongside inventory operations — appearing on camera and helping produce short-form video content that regularly reached millions of views.</p>
+      <h2 style="margin: 0 0 12px; font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C4783A;">Toolkit</h2>
+      <h3 style="margin: 0 0 40px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 36px; font-weight: 700;">Tools I work with</h3>
+      <div class="grid-2" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
+        <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 18px; padding: 28px;">
+          <div style="font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A4C8C; margin-bottom: 16px;">Design</div>
           <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-            <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Internal Communications</span>
-            <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Inventory Operations</span>
-            <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">On-Camera Content</span>
+            <span style="padding: 7px 14px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3; font-size: 13px; font-weight: 600;">Adobe</span>
+            <span style="padding: 7px 14px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3; font-size: 13px; font-weight: 600;">Canva</span>
+            <span style="padding: 7px 14px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3; font-size: 13px; font-weight: 600;">Figma</span>
           </div>
         </div>
-        <div style="flex: 1; min-width: 320px; min-height: 280px; background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px; gap: 16px;">
-          <img src="images/707eb5f195c28051a6f661c4e63e5947.png" alt="Costco Wholesale logo" style="width: 100%; max-width: 320px; height: auto; object-fit: contain; display: block;">
-          <a href="https://www.costco.co.uk" style="font-size: 14px; font-weight: 700; color: #7a4c8c">costco.co.uk →</a>
-        </div>
-      </div>
-    </div>
-  </div><div id="work" class="sec" style="width: 100%; box-sizing: border-box; padding: 0 32px 100px;">
-    <div style="max-width: 1160px; margin: 0 auto;">
-      <h2 style="margin: 0 0 12px; font-size: 14px; font-family: 'Public Sans', sans-serif; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C4783A;">Selected Work</h2>
-      <h3 class="display" style="margin: 0 0 48px; font-size: 36px; font-weight: 700;">Case studies</h3>
-
-      <div style="display: flex; flex-direction: column; gap: 24px;">
-
-        <!-- SOLCOMMS -->
-        <div style="background: linear-gradient(150deg, #5C4368 0%, #372A44 55%, #241C2E 100%); border-radius: 22px; overflow: hidden; display: flex; gap: 0; flex-wrap: wrap;">
-          <div class="card-pad" style="flex: 1; min-width: 320px; padding: 44px;">
-            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #F2A365; margin-bottom: 14px;">Marketing Agency</div>
-            <h4 class="display" style="margin: 0 0 12px; font-size: 30px; font-weight: 600; color: #FFFDFA;">SOLCOMMS</h4>
-            <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.65; color: #D8C9DC; max-width: 460px;">Web, SEO and lead-generation design — "the element that drives your growth." Built out brand identity, lead design, SEO &amp; CTA strategy and content curation.</p>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px;">
-              <span style="padding: 7px 14px; border-radius: 999px; border: 1px solid #4A3B50; color: #EDE1F0; font-size: 12.5px; font-weight: 600;">Brand Identity</span>
-              <span style="padding: 7px 14px; border-radius: 999px; border: 1px solid #4A3B50; color: #EDE1F0; font-size: 12.5px; font-weight: 600;">Lead Design</span>
-              <span style="padding: 7px 14px; border-radius: 999px; border: 1px solid #4A3B50; color: #EDE1F0; font-size: 12.5px; font-weight: 600;">SEO &amp; CTA</span>
-              <span style="padding: 7px 14px; border-radius: 999px; border: 1px solid #4A3B50; color: #EDE1F0; font-size: 12.5px; font-weight: 600;">Content Curation</span>
-            </div>
-            <a href="https://www.solcomms.agency/blank" style="font-size: 14px; font-weight: 700; color: #F2A365;">solcomms.agency →</a>
-          </div>
-          <div style="flex: 1; min-width: 320px; min-height: 280px; background: #000; display: flex;">
-            <img src="images/1825d4ed12fb776cc2c522fc5ee48350.png" alt="SOLCOMMS website" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 18px; padding: 28px;">
+          <div style="font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A4C8C; margin-bottom: 16px;">Video</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="padding: 7px 14px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3; font-size: 13px; font-weight: 600;">CapCut</span>
+            <span style="padding: 7px 14px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3; font-size: 13px; font-weight: 600;">Runway</span>
+            <span style="padding: 7px 14px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3; font-size: 13px; font-weight: 600;">Artlist</span>
           </div>
         </div>
-
-        <!-- SOCIAL CAMPAIGNS + CRIANZA -->
-        
-
-        <!-- NAUCALPAN -->
-        <div class="grid-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px;">
-          <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 22px; overflow: hidden;">
-            <div style="width: 100%; height: 226px; background: #F3E3EF; overflow: hidden;">
-              <img src="images/eb81b0f1103d972308bcc8e2999ba0fd.png" alt="Ivonne de la Flor Instagram grid" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-            </div>
-            <div class="card-pad" style="padding: 36px;">
-              <h4 class="display" style="margin: 0 0 12px; font-size: 24px; font-weight: 600;">Content &amp; Social Campaigns</h4>
-              <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A4C8C; margin-bottom: 14px;">Creators &amp; Personal Brands</div>
-              <p style="margin: 0 0 18px; font-size: 15px; line-height: 1.65; color: #5A4C5E;">Short-form video and social growth for Grace Terry and Ivonne de la Flor across Instagram, TikTok and Facebook&nbsp; from viral audio trends to consistent brand storytelling.</p>
-              <div style="display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-bottom: 20px;">
-                <a href="https://www.instagram.com/graceterryofficial" style="font-size: 13.5px; font-weight: 700;">@graceterryofficial →</a>
-                <a href="https://www.instagram.com/ivonne_delaflor" style="font-size: 13.5px; font-weight: 700;">@ivonne_delaflor →</a>
-              </div>
-              <div style="display: flex; align-items: baseline; gap: 10px; padding-top: 18px; border-top: 1px solid #EEE1DC;">
-                <span class="display" style="font-size: 28px; font-weight: 700; color: #2A1E2E;">+4,000</span>
-                <span style="font-size: 12.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7A4C8C;">Organic followers</span>
-              </div>
-            </div>
-          </div>
-          <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 22px; overflow: hidden;">
-            <div style="width: 100%; height: 226px; background: #EAF2F8; overflow: hidden;">
-              <img src="images/0ac151d757f42dd5d4edb2ec92090aaf.png" alt="Crianza con Cariño y Buen Trato Facebook post" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-            </div>
-            <div class="card-pad" style="padding: 36px;">
-              <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C4783A; margin-bottom: 14px;">NGO</div>
-              <h4 class="display" style="margin: 0 0 12px; font-size: 24px; font-weight: 600;">Crianza con Cariño y Buen Trato</h4>
-              <p style="margin: 0 0 18px; font-size: 15px; line-height: 1.65; color: #5A4C5E;">Memes, content and visual identity for a parenting-focused NGO, publishing across Facebook, TikTok and Instagram with a warm, values-driven tone.</p>
-              <a href="https://www.instagram.com/crianzaconcarino" style="font-size: 13.5px; font-weight: 700; display: block; margin-bottom: 20px;">@crianzaconcarino →</a>
-              <div style="display: flex; align-items: baseline; gap: 10px; padding-top: 18px; border-top: 1px solid #EEE1DC;">
-                <span class="display" style="font-size: 28px; font-weight: 700; color: #2A1E2E;">4%</span>
-                <span style="font-size: 12.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7A4C8C;">CTR</span>
-              </div>
-            </div>
-        </div></div>
-
-        <div style="background: linear-gradient(120deg, #EDE1F0 0%, #FBE4CC 100%); border-radius: 22px; overflow: hidden; display: flex; gap: 0; flex-wrap: wrap;">
-          <div class="card-pad" style="flex: 1; min-width: 320px; padding: 44px;">
-            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A4C8C; margin-bottom: 14px;">Government · Naucalpan de Juárez, 2021</div>
-            <h4 class="display" style="margin: 0 0 12px; font-size: 30px; font-weight: 600; color: #2A1E2E;">Government Communication Campaigns</h4>
-            <p style="margin: 0 0 22px; font-size: 15px; line-height: 1.65; color: #4A3B4E; max-width: 520px;">Public-health and civic engagement content for the Naucalpan Government. Developing strategic communication across digital platforms for the local citizens. Creating successful campaigns in different government areas such as the IMCUFIDEN and Women Protection Agency.<br><a href="https://www.facebook.com/CiudadNaucalpan" style="color: #7A4C8C; font-weight: 700;">@GOBNAU →</a></p>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px;">
-              <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Political Content</span>
-              <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Health &amp; Exercise</span>
-              <span style="padding: 7px 14px; border-radius: 999px; background: #FFFDFA; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Announcements</span>
-            </div>
-            <div style="display: flex; align-items: baseline; gap: 10px; padding-top: 18px; border-top: 1px solid rgba(122,76,140,0.25);"><span class="display" style="font-size: 28px; font-weight: 700; color: rgb(42, 30, 46)">+140,000</span>
-              <span style="font-size: 12.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(122, 76, 140)">Facebook citizens reached</span>
-            </div>
-            <div style="margin-top: 24px; border-radius: 14px; overflow: hidden; max-width: 260px;">
-              <img src="images/d320c9a9bcb64e9e4f2d2a64570349eb.png" alt="Naucalpan Actividades Deportivas #ActívateNau" style="width: 100%; height: auto; display: block;">
-            </div>
-          </div>
-          
-        </div>
-
-        <!-- MEXCC -->
-        <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 22px; overflow: hidden; display: flex; gap: 0; flex-wrap: wrap;">
-          <div class="card-pad" style="flex: 1; min-width: 320px; padding: 44px; position: relative">
-            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C4783A; margin-bottom: 14px;">Bilateral Trade Body</div>
-            <h4 class="display" style="margin: 0 0 12px; font-size: 30px; font-weight: 600; color: #2A1E2E;">Mexican Chamber of Commerce UK</h4>
-            <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.65; color: #5A4C5E; max-width: 460px;">Web page design, content curation and community support for the bilateral trade body connecting Mexico and the United Kingdom.</p>
-            
-            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px;">
-              <span style="padding: 7px 14px; border-radius: 999px; border: 1px solid #EEE1DC; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Web Content</span>
-              <span style="padding: 7px 14px; border-radius: 999px; border: 1px solid #EEE1DC; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Social Media</span>
-              <span style="padding: 7px 14px; border-radius: 999px; border: 1px solid #EEE1DC; color: #7A4C8C; font-size: 12.5px; font-weight: 600;">Events</span>
-            </div>
-            <a href="https://mexcc.uk" style="font-size: 14px; font-weight: 700; color: #7A4C8C;">mexcc.uk →</a>
-            <div style="display: flex; justify-content: center; margin-top: 24px;">
-              <img src="images/56eb50c99767960036f7b9ca2a5eca73.png" alt="Mexican Chamber of Commerce UK logo" style="width: 100%; max-width: 300px; height: auto; object-fit: contain; display: block;">
-            </div>
-            <div style="margin-top: 20px; border-radius: 14px; overflow: hidden;">
-              <img src="images/f665a7a363e1bf32dd020eae35e6d734.jpg" alt="Ángel de la Independencia, Mexico City" style="width: 100%; height: auto; display: block;">
-            </div>
+        <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 18px; padding: 28px;">
+          <div style="font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A4C8C; margin-bottom: 16px;">Social &amp; Ads</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="padding: 7px 14px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3; font-size: 13px; font-weight: 600;">TikTok Ads</span>
+            <span style="padding: 7px 14px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3; font-size: 13px; font-weight: 600;">Meta Ads</span>
+            <span style="padding: 7px 14px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3; font-size: 13px; font-weight: 600;">Hootsuite</span>
           </div>
         </div>
-
-
-
+        <div style="background: #FFFDFA; border: 1px solid #EEE1DC; border-radius: 18px; padding: 28px;">
+          <div style="font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A4C8C; margin-bottom: 16px;">Web, Analytics &amp; AI</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="padding: 7px 14px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3; font-size: 13px; font-weight: 600;">WordPress</span>
+            <span style="padding: 7px 14px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3; font-size: 13px; font-weight: 600;">Wix</span>
+            <span style="padding: 7px 14px; border-radius: 999px; background: #2A1E2E; color: #FDF8F3; font-size: 13px; font-weight: 600;">Claude</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-</div><div id="contact" class="sec" style="width: 100%; box-sizing: border-box; background: linear-gradient(150deg, #5C4368 0%, #372A44 55%, #241C2E 100%); padding: 100px 32px 64px">
+  <!-- CONTACT -->
+  <div id="contact" class="sec" style="width: 100%; box-sizing: border-box; background: linear-gradient(150deg, #5C4368 0%, #372A44 55%, #241C2E 100%); padding: 100px 32px 64px;">
     <div style="max-width: 1160px; margin: 0 auto; text-align: center;">
-      <h2 class="display contact-title" style="margin: 0 0 20px; font-size: 46px; font-weight: 700; color: #FFFDFA;">Let's work together</h2>
+      <h2 class="contact-title" style="margin: 0 0 20px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; font-size: 46px; font-weight: 700; color: #FFFDFA;">Let's work together</h2>
       <p style="margin: 0 0 36px; font-size: 17px; color: #D8C9DC;">Open to new projects, collaborations and full-time roles in digital marketing and content.</p>
       <div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">
-        <a href="mailto:iamalequintero@gmail.com" class="btn" style="background: linear-gradient(120deg, #7A4C8C 0%, #F2A365 100%); color: #FFFDFA; font-weight: 700; font-size: 15px; padding: 16px 32px; border-radius: 999px;">iamalequintero@gmail.com</a>
-        <a href="https://www.linkedin.com/in/alejandra-quintero-solana-b7422a17b/" class="btn" style="border: 1px solid #6B5A70; color: #FFFDFA; font-weight: 700; font-size: 15px; padding: 16px 32px; border-radius: 999px;">LinkedIn →</a>
+        <a href="mailto:iamalequintero@gmail.com" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(120deg, #7A4C8C 0%, #F2A365 100%); color: #FFFDFA; font-weight: 700; font-size: 15px; padding: 16px 32px; border-radius: 999px;">iamalequintero@gmail.com</a>
+        <a href="https://www.linkedin.com/in/alejandra-quintero-solana-b7422a17b/" style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid #6B5A70; color: #FFFDFA; font-weight: 700; font-size: 15px; padding: 16px 32px; border-radius: 999px;">LinkedIn →</a>
       </div>
       <div style="margin-top: 56px; padding-top: 28px; border-top: 1px solid #4A3B50; font-size: 13px; color: #9C8CA0;">Alejandra Quintero Solana — Digital Marketing &amp; Content Design</div>
     </div>
   </div>
 
-  <!-- SELECTED WORK -->
-
-
-  <!-- CONTACT -->
-  
-
+</div>
+<script>
+document.querySelectorAll('.meet-wrap').forEach(function (wrap) {
+  var curtain = wrap.querySelector('.meet-curtain');
+  var close = wrap.querySelector('.meet-close');
+  if (curtain) curtain.addEventListener('click', function () {
+    wrap.classList.add('is-open');
+    curtain.setAttribute('aria-expanded', 'true');
+  });
+  if (close) close.addEventListener('click', function () {
+    wrap.classList.remove('is-open');
+    curtain.setAttribute('aria-expanded', 'false');
+  });
+});
+</script>
 </body>
 </html>
